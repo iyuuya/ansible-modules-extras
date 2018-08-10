@@ -18,7 +18,7 @@ setup(
     author_email='i.yuuya@gmail.com',
     url='https://github.com/iyuuya/ansible-modules-extras',
     description='Ansible modules for iyuuya',
-    packages=['ansible/modules'],
+    packages=['ansible/modules/packaging/os'],
     classifiers=[
         'Framework :: Ansible',
         'Environment :: Console',
