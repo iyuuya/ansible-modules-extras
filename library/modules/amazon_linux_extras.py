@@ -1,4 +1,51 @@
 #!/usr/bin/env python
+# Copyright (c) 2018 iyuuya
+# GNU General Public License v3.0+ (see LICENSE or https://www.gnu.org/licenses/gpl-3.0.txt)
+
+__metaclass__ = type
+
+ANSIBLE_METADATA = {
+    'metadata_version': '1.0',
+    'status': ['preview'],
+    'supported_by': 'community'
+}
+
+DOCUMENTATION = '''
+---
+module: amazon_linux_extras
+short_description: Manage yum repo with amazon-linux-extras
+description:
+- enable/disable amazon-linux-extras topics.
+- NOT included `install` sub-command.
+version_added: '2.5'
+options:
+    name:
+        required: true
+        type: str
+    state:
+        required: false
+        default: 'enabled'
+        choices:
+            - 'enabled'
+            - 'disabled'
+    versions:
+        required: false
+        default: 'latest'
+        type: str
+'''
+
+EXAMPLES = '''
+- name: disable php 7.2.4
+  amazon_linux_extras:
+    name: php7.2
+    version: 7.2.4
+- name: enable php 7.2.5
+  amazon_linux_extras:
+    name: php7.2
+    version: 7.2.5
+'''
+
+RETURN = ''' # '''
 
 import re
 from ansible.module_utils.basic import AnsibleModule
@@ -96,7 +143,7 @@ def get_topic_info(module):
         if re.match('^' + name + '=?', cols[1]):
             return cols
     fail(module, False, "Topic not found.")
-    
+
 
 # ==============================================================================
 # Main
